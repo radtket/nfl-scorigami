@@ -1,0 +1,107 @@
+{
+  "name": "nfl-scorigami",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "next": "15.1.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^2.3.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "experimentalObjectRestSpread": true,
+        "impliedStrict": true,
+        "classes": true,
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true,
+      "commonjs": true
+    },
+    "extends": [
+      "airbnb",
+      "airbnb/hooks",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier",
+      "react-hooks"
+    ],
+    "rules": {
+      "arrow-body-style": [
+        "error",
+        "always"
+      ],
+      "no-underscore-dangle": 0,
+      "comma-dangle": 0,
+      "react/jsx-filename-extension": 0,
+      "react/jsx-sort-props": 1,
+      "react/jsx-props-no-spreading": 0,
+      "react/no-unescaped-entities": 0,
+      "react/jsx-uses-react": 1,
+      "react/react-in-jsx-scope": 0,
+      "no-unused-expressions": [
+        "error",
+        {
+          "allowShortCircuit": true,
+          "allowTernary": true,
+          "allowTaggedTemplates": true
+        }
+      ],
+      "prettier/prettier": [
+        "error",
+        {
+          "trailingComma": "es5",
+          "printWidth": 80,
+          "jsxBracketSameLine": false,
+          "number-leading-zero": null,
+          "arrowParens": "avoid",
+          "singleQuote": true
+        }
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "server/**/*.js"
+        ],
+        "rules": {
+          "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "always"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
