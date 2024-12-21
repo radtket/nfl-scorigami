@@ -1,13 +1,26 @@
+import Image from 'next/image';
+import { Geist, Geist_Mono } from 'next/font/google';
 import { get } from 'lodash';
+import { Button } from '@nextui-org/button';
 
-export default function Page(props) {
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
+
+export default function Home(props) {
   return (
-    <div>
-      <h1>Page</h1>
+    <main className="dark text-foreground bg-background">
+      <Button>Click me</Button>
       {get(props, 'events', []).map(({ name, id }) => {
         return <h1 key={id}>{name}</h1>;
       })}
-    </div>
+    </main>
   );
 }
 
