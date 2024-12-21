@@ -39,10 +39,13 @@ const CurrentGames = ({ events = [] }) => {
 
         {events.map(({ name, id, ...rest }) => {
           const competition = get(rest, 'competitions[0]', {});
+          const gamecast = get(rest, 'links', []).find(({ shortText }) => {
+            return shortText === 'Gamecast';
+          });
 
           return (
             <div key={id} className="col-12 md:col-6 mb-2">
-              <GameCard name={name} {...competition} />
+              <GameCard gamecast={gamecast} name={name} {...competition} />
             </div>
           );
         })}

@@ -3,7 +3,6 @@ import CurrentGames from '../components/CurrentGames';
 import ScorigamiCard from '../components/ScorigamiCard';
 
 export default function Home(props) {
-  console.log({ props });
   return (
     <main className="layout-wrapper layout-static">
       <div className="layout-main-container">
