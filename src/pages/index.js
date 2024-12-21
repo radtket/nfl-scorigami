@@ -1,37 +1,41 @@
-import Image from 'next/image';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Card, CardBody } from '@nextui-org/react';
 import { get } from 'lodash';
-import { Button } from '@nextui-org/button';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export default function Home(props) {
   return (
     <main className="dark text-foreground bg-background">
-      <Button>Click me</Button>
       {get(props, 'events', []).map(({ name, id }) => {
-        return <h1 key={id}>{name}</h1>;
+        return (
+          <Card key={id}>
+            <CardBody>
+              <p>{name}</p>
+            </CardBody>
+          </Card>
+        );
       })}
     </main>
   );
 }
 
 export async function getStaticProps() {
-  const props = await fetch(
-    'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard'
-  ).then(res => {
-    return res.json();
-  });
-
-  return {
-    props,
-  };
+  return Promise.all([
+    fetch(
+      'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard'
+    ).then(res => {
+      return res.json();
+    }),
+  ])
+    .then(([scoreboard]) => {
+      return {
+        props: {
+          ...scoreboard,
+        },
+      };
+    })
+    .catch(err => {
+      console.error('Oh Shoot!', err);
+      return {
+        props: {},
+      };
+    });
 }
