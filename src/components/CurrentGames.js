@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
 import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
-import { Card } from 'primereact/card';
 import { get } from 'lodash';
 import GameCard from './GameCard';
 
-const CurrentGames = ({ events = [] }) => {
+const CurrentGames = ({ events }) => {
   const ref = useRef(null);
 
   return (
@@ -37,9 +37,9 @@ const CurrentGames = ({ events = [] }) => {
           </div>
         </div>
 
-        {events.map(({ name, id, ...rest }) => {
-          const competition = get(rest, 'competitions[0]', {});
-          const gamecast = get(rest, 'links', []).find(({ shortText }) => {
+        {(events || []).map(({ name, id, links, competitions }) => {
+          const competition = get(competitions, 0, {});
+          const gamecast = (links || []).find(({ shortText }) => {
             return shortText === 'Gamecast';
           });
 
@@ -52,6 +52,10 @@ const CurrentGames = ({ events = [] }) => {
       </div>
     </div>
   );
+};
+
+CurrentGames.propTypes = {
+  events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default CurrentGames;
