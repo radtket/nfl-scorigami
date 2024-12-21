@@ -1,19 +1,16 @@
 import { get } from 'lodash';
-import { Card } from 'primereact/card';
+import CurrentGames from '../components/CurrentGames';
+import ScorigamiCard from '../components/ScorigamiCard';
 
 export default function Home(props) {
+  console.log({ props });
   return (
-    <main>
-      <div className="grid">
-        {get(props, 'events', []).map(({ name, id }) => {
-          return (
-            <div key={id} className="col-12 md:col-6 lg:col-3">
-              <Card title={name}>
-                <p className="m-0">{name}</p>
-              </Card>
-            </div>
-          );
-        })}
+    <main className="layout-wrapper layout-static">
+      <div className="layout-main-container">
+        <div className="layout-main">
+          <ScorigamiCard />
+          <CurrentGames events={get(props, 'events', [])} />
+        </div>
       </div>
     </main>
   );
