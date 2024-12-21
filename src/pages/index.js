@@ -1,18 +1,20 @@
-import { Card, CardBody } from '@nextui-org/react';
 import { get } from 'lodash';
+import { Card } from 'primereact/card';
 
 export default function Home(props) {
   return (
-    <main className="dark text-foreground bg-background">
-      {get(props, 'events', []).map(({ name, id }) => {
-        return (
-          <Card key={id}>
-            <CardBody>
-              <p>{name}</p>
-            </CardBody>
-          </Card>
-        );
-      })}
+    <main>
+      <div className="grid">
+        {get(props, 'events', []).map(({ name, id }) => {
+          return (
+            <div key={id} className="col-12 md:col-6 lg:col-3">
+              <Card title={name}>
+                <p className="m-0">{name}</p>
+              </Card>
+            </div>
+          );
+        })}
+      </div>
     </main>
   );
 }
