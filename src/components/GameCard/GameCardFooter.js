@@ -9,6 +9,7 @@ import {
 const GameCardFooter = ({ status, gamecast }) => {
   switch (status.type.name) {
     case GAME_STATUS_IN_PROGRESS: {
+      // TODO: ADD PERCENTAGE CHANGE PRGORESS BAR, https://www.covers.com/sports/nfl/matchups
       return (
         <h5 className="m-0 text-sm text-center font-normal block">
           Chance of Scorigami: <strong className="font-semibold">3.38%</strong>
