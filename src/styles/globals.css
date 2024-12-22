@@ -26,6 +26,17 @@ html {
   height: 100%;
 }
 
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 body {
   font-family: var(--font-family);
   color: var(--text-color);
@@ -110,6 +121,9 @@ a {
 }
 
 
+.game-card .p-card-footer {
+	text-align: center;
+}
 
 .game-card h3.winner::before {
   position: absolute;
@@ -122,4 +136,38 @@ a {
   border-left: 6px solid var(--red-500);
   top: calc(50% - 6px);
   left: -75%;
+}
+
+
+svg text.cell-text {
+  font-size: .4em;
+}
+
+.hide-cell-text svg text.cell-text,
+svg text.cell-text.later  {
+  fill: transparent;
+}
+
+.solid-filled svg text.cell-text {
+  fill: #fff;
+}
+
+.solid-filled svg rect.filled {
+  fill:  green;
+}
+
+
+svg rect.filled.later {
+  fill: #e9ecef;
+}
+
+
+.solid-filled svg rect.filled.red {
+  fill: red;
+}
+
+
+
+.solid-filled svg #gradient-legend {
+  display: none;
 }

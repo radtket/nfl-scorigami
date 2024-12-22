@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import CurrentGames from '../components/CurrentGames';
 import ScorigamiCard from '../components/ScorigamiCard';
 
-export default function Home(props) {
+const Home = props => {
   return (
     <main className="layout-wrapper layout-static">
       <div className="layout-main-container">
@@ -13,7 +13,9 @@ export default function Home(props) {
       </div>
     </main>
   );
-}
+};
+
+export default Home;
 
 export async function getStaticProps() {
   return Promise.all([
