@@ -1,0 +1,70 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "prettier"],
+  "plugins": ["prettier", "react-hooks"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2019,
+    "babelOptions": {
+      "presets": [
+        "@babel/preset-react"
+      ]
+    },
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "modules": true,
+      "jsx": true
+    },
+    "requireConfigFile": false
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "es2021": true,
+    "commonjs": true
+  },
+  "rules": {
+    "comma-dangle": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-sort-props": 1,
+    "react/jsx-props-no-spreading": 0,
+    "react/no-unescaped-entities": 0,
+    "react/jsx-uses-react": 1,
+    "react/react-in-jsx-scope": 0,
+    "react/require-default-props": [2, {
+      "functions": "defaultArguments"
+    }],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true,
+        "allowTaggedTemplates": true
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "arrow-body-style": ["error", "always"],
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function"  }],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "printWidth": 80,
+        "jsxBracketSameLine": false,
+        "number-leading-zero": null,
+        "arrowParens": "avoid",
+        "singleQuote": true
+      }
+    ]
+  }
+}
