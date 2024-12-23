@@ -70,20 +70,17 @@ const ScorigamiCard = () => {
 
                 <tr>
                   {Array.from({ length: maxpts + 1 }).map((_, ROW_INDEX) => {
+                    const key = createKey(['colHeader_', ROW_INDEX]);
                     if (ROW_INDEX > maxpts) {
-                      // eslint-disable-next-line jsx-a11y/control-has-associated-label
                       return (
-                        <th>
+                        <th key={key}>
                           <span className="sr-only">N/A</span>
                         </th>
                       );
                     }
 
                     return (
-                      <th
-                        key={createKey(['colHeader_', ROW_INDEX])}
-                        id={`colHeader_${ROW_INDEX}`}
-                      >
+                      <th key={key} id={`colHeader_${ROW_INDEX}`}>
                         {ROW_INDEX}
                       </th>
                     );
@@ -97,11 +94,13 @@ const ScorigamiCard = () => {
                       id={`row_${ROW_INDEX}`}
                     >
                       {row.map(({ count }, CELL_INDEX) => {
-                        const id = `${ROW_INDEX}-${CELL_INDEX}`;
+                        const id = createKey([ROW_INDEX, CELL_INDEX]);
+                        const key = createKey(['cell', id]);
 
                         if (count > 0) {
                           return (
                             <td
+                              key={key}
                               className={classNames('green', {
                                 special: ROW_INDEX === CELL_INDEX,
                               })}
@@ -116,14 +115,18 @@ const ScorigamiCard = () => {
 
                         if (CELL_INDEX < ROW_INDEX) {
                           return (
-                            <td className="black">
+                            <td key={key} className="black">
                               <span className="sr-only">N/A</span>
                             </td>
                           );
                         }
 
                         return (
-                          <td className="blank" id={join(['cell', id], '_')}>
+                          <td
+                            key={key}
+                            className="blank"
+                            id={join(['cell', id], '_')}
+                          >
                             <div id={join(['hover', id], '_')}>
                               <div id={join(['count', id], '_')}>
                                 <span className="sr-only">N/A</span>

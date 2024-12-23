@@ -121,6 +121,9 @@ a {
 }
 
 
+.game-card .p-card-footer {
+	text-align: center;
+}
 
 .game-card h3.winner::before {
   position: absolute;

@@ -37,15 +37,17 @@ const CurrentGames = ({ events }) => {
           </div>
         </div>
 
-        {(events || []).map(({ name, id, links, competitions }) => {
-          const competition = get(competitions, 0, {});
-          const gamecast = (links || []).find(({ shortText }) => {
-            return shortText === 'Gamecast';
-          });
-
+        {(events || []).map(({ name, id, links, competitions, uid }) => {
           return (
-            <div key={id} className="col-12 md:col-6 mb-2">
-              <GameCard gamecast={gamecast} name={name} {...competition} />
+            <div key={uid} className="col-12 md:col-6 mb-2">
+              <GameCard
+                gamecast={(links || []).find(({ shortText }) => {
+                  return shortText === 'Gamecast';
+                })}
+                id={id}
+                name={name}
+                {...get(competitions, 0, {})}
+              />
             </div>
           );
         })}

@@ -6,15 +6,24 @@ import classNames from 'classnames';
 import { get } from 'lodash';
 import GameCardHeader from './GameCardHeader';
 import GameCardFooter from './GameCardFooter';
+import { GAME_STATUS_SCHEDULED } from '../../utils/constants';
 
-const GameCard = ({ competitors, status, venue, gamecast, date }) => {
+const GameCard = ({
+  competitors,
+  status,
+  venue,
+  gamecast,
+  date,
+  id,
+  broadcast,
+}) => {
   return (
     <Card
       className="game-card"
-      footer={<GameCardFooter {...{ status, gamecast }} />}
+      footer={<GameCardFooter {...{ status, gamecast, competitors, id }} />}
       title={
         <ul className="m-0 pl-0 list-none flex align-items-center justify-content-between text-xs">
-          <GameCardHeader {...{ status, date, venue }} />
+          <GameCardHeader {...{ status, date, venue, broadcast }} />
         </ul>
       }
     >
@@ -46,7 +55,7 @@ const GameCard = ({ competitors, status, venue, gamecast, date }) => {
                   <dt className="text-sm">{team.name}</dt>
                 </dl>
               </div>
-              {status.type.name === 'STATUS_SCHEDULED' ? (
+              {status.type.name === GAME_STATUS_SCHEDULED ? (
                 <span className="text-sm">{record}</span>
               ) : (
                 <h3 className={classNames({ winner })}>{score}</h3>
@@ -60,6 +69,7 @@ const GameCard = ({ competitors, status, venue, gamecast, date }) => {
 };
 
 GameCard.propTypes = {
+  id: PropTypes.string.isRequired,
   competitors: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   date: PropTypes.string.isRequired,
   gamecast: PropTypes.shape({}).isRequired,
@@ -71,6 +81,7 @@ GameCard.propTypes = {
   venue: PropTypes.shape({
     fullName: PropTypes.string,
   }).isRequired,
+  broadcast: PropTypes.string.isRequired,
 };
 
 export default GameCard;

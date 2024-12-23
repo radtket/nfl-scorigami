@@ -1,4 +1,4 @@
-import { isArray, join, kebabCase } from 'lodash';
+import { isArray, isNil, join, kebabCase } from 'lodash';
 
 // eslint-disable-next-line import/prefer-default-export
 export const createKey = key => {
@@ -7,7 +7,7 @@ export const createKey = key => {
       isArray(key)
         ? key
         : [key].filter(char => {
-            return char;
+            return !isNil(char);
           }),
       '-'
     )
