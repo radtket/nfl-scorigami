@@ -17,6 +17,7 @@ const getFill = ({ value, x, y }, colorScale) => {
   }
 
   return 'white';
+};
 
 const Renderer = ({ width, height, data, setHoveredCell }) => {
   // The bounds (=area inside the axis) is calculated by substracting the margins
