@@ -24,8 +24,25 @@ export async function getStaticProps() {
     ).then(res => {
       return res.json();
     }),
+    fetch('https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv')
+      .then(res => {
+        return res.text();
+      })
+      .then(text => {
+        const lines = text.split('\n');
+        const headers = lines[0].split(',');
+        const eloData = lines.slice(1).map(line => {
+          const values = line.split(',');
+          return headers.reduce((obj, header, index) => {
+            obj[header] = values[index];
+            return obj;
+          }, {});
+        });
+        return eloData;
+      }),
   ])
-    .then(([scoreboard]) => {
+    .then(([scoreboard, zzz]) => {
+      console.log({ zzz });
       return {
         props: {
           ...scoreboard,

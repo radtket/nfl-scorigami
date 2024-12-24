@@ -10,6 +10,10 @@ import {
 } from '../constants/modes';
 import data from '../constants/data';
 import { createKey } from '../constants/utils';
+// import Heatmap from './HeatMap/Heatmap';
+// import zz from './HeatMap/data';
+import Fuck from './fuck';
+import ScoreBoard from './ScoreBoard';
 
 const { maxpts, matrix } = data;
 
@@ -20,6 +24,9 @@ const ScorigamiCard = () => {
   return (
     <div className="card">
       <div className="grid">
+        <div className="col-12">
+          <ScoreBoard />
+        </div>
         <div className="col-12">
           <Toolbar
             end={
@@ -46,6 +53,13 @@ const ScorigamiCard = () => {
             }
           />
         </div>
+
+        <div className="col-12">
+          <Fuck />
+        </div>
+        {/* <div className="col-12">
+          <Heatmap data={zz} height={1400} width={1400} />
+        </div> */}
         <div className="col-12">
           <div className="sectionContainer" id="tableContainer">
             <div id="loadingTableDiv">
