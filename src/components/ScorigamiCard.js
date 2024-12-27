@@ -72,6 +72,7 @@ const ScorigamiCard = () => {
     ]);
   }, []);
 
+  // TODO: CREATE SEPERATE FOR GRAPH MOST FREQUENT SCORES TO RAREST
   const drawHeatmap = useCallback(() => {
     const svg = d3.select(ref.current);
     const width = svg.node().parentNode.clientWidth;
@@ -223,7 +224,8 @@ const ScorigamiCard = () => {
       .attr(
         'transform',
         `translate(${margin.left},${height - margin.bottom - legendHeight})`
-      ).attr('id', 'gradient-legend');
+      )
+      .attr('id', 'gradient-legend');
 
     const defs = svg.append('defs');
 
