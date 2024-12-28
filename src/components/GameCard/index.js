@@ -43,11 +43,12 @@ const GameCard = ({
             >
               <div className="flex align-items-center">
                 <Avatar
-                  className="mr-3"
-                  image={team.logo}
-                  shape="circle"
+                  className="p-overlay-badge mr-3"
                   size="large"
+                  image={team.logo}
+                  // shape="circle"
                 />
+
                 <dl>
                   <dd className="text-base font-semibold ml-0 mb-1">
                     {team.location}

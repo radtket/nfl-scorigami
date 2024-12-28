@@ -123,6 +123,7 @@ a {
 
 .game-card .p-card-footer {
 	text-align: center;
+  padding-top: 0;
 }
 
 .game-card h3.winner::before {
