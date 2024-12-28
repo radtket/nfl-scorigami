@@ -73,6 +73,9 @@ const GameCardFooter = ({ competitors, status, gamecast, id }) => {
           <a
             className="m-0 text-sm text-center font-normal block p-button p-component p-button-text"
             href={gamecast.href}
+            onClick={e => {
+              e.stopPropagation();
+            }}
             rel="noreferrer"
             target="_blank"
           >

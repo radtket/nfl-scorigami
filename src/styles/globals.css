@@ -107,7 +107,19 @@ a {
     padding-left: 2rem;
   }
 }
+.game-card {
+  cursor: pointer;
+}
 
+.game-card:hover {
+  background: #ffffff08;
+  color: #ffffffde;
+}
+
+.game-card.game-card--selected {
+  background: #81c78429;
+  color: #ffffffde;
+}
 
 
 .game-card .p-card-title {
@@ -134,7 +146,7 @@ a {
   border-top: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 6px solid var(--red-500);
+  border-left: 6px solid var(--primary-color);
   top: calc(50% - 6px);
   left: -75%;
 }
@@ -163,7 +175,7 @@ svg rect.filled.later {
 }
 
 
-.solid-filled svg rect.filled.red {
+svg rect.filled.red {
   fill: red;
 }
 

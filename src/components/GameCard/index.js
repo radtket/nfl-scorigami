@@ -16,11 +16,14 @@ const GameCard = ({
   date,
   id,
   broadcast,
+  isSelected,
+  onClick,
 }) => {
   return (
     <Card
-      className="game-card"
+      className={classNames('game-card', { 'game-card--selected': isSelected })}
       footer={<GameCardFooter {...{ status, gamecast, competitors, id }} />}
+      onClick={onClick}
       title={
         <ul className="m-0 pl-0 list-none flex align-items-center justify-content-between text-xs">
           <GameCardHeader {...{ status, date, venue, broadcast }} />
@@ -83,6 +86,8 @@ GameCard.propTypes = {
     fullName: PropTypes.string,
   }).isRequired,
   broadcast: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default GameCard;
