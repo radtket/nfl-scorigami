@@ -12,6 +12,8 @@ import { Slider } from 'primereact/slider';
 import classNames from 'classnames';
 import * as d3 from 'd3';
 import { readableColor } from 'polished';
+import { ScrollPanel } from 'primereact/scrollpanel';
+import { getYear } from 'date-fns';
 import {
   MODE_FIRST_GAME_CALENDAR_YEAR,
   MODE_FIRST_GAME_SEASON_YEAR,
@@ -21,6 +23,7 @@ import {
   MULTI_SELECT_OPTIONS,
 } from '../constants/modes';
 import json from '../constants/data';
+import Brian from './Brian/Brian';
 
 const { matrix } = json;
 
@@ -56,10 +59,26 @@ const data = matrix.reduce((all, row, ROW_INDEX) => {
   return copy;
 }, []);
 
+const initalRange = getYear(new Date());
+
 const ScorigamiCard = () => {
   const [multiSelect, setMultiSelect] = useState([]);
   const [mode, setMode] = useState(MODE_OPTIONS[1]);
-  const [range, setRange] = useState(2025);
+  const [range, setRange] = useState(initalRange);
+
+  const DATA_RANGE = useMemo(() => {
+    const years = data.map(d => {
+      return d.year;
+    });
+    return {
+      min: parseInt(d3.min(years), 10),
+      max: parseInt(d3.max(years), 10),
+    };
+  }, []);
+
+  useEffect(() => {
+    setRange(DATA_RANGE.max);
+  }, [DATA_RANGE]);
 
   const ref = useRef();
 
@@ -75,7 +94,7 @@ const ScorigamiCard = () => {
   // TODO: CREATE SEPERATE FOR GRAPH MOST FREQUENT SCORES TO RAREST
   const drawHeatmap = useCallback(() => {
     const svg = d3.select(ref.current);
-    const width = svg.node().parentNode.clientWidth;
+    const width = 2000;
     const height = width; // Maintain 1:1 ratio
     svg.selectAll('*').remove();
 
@@ -298,7 +317,7 @@ const ScorigamiCard = () => {
                     case MODE_FIRST_GAME_CALENDAR_YEAR:
                     case MODE_FIRST_GAME_SEASON_YEAR: {
                       d3.selectAll('[data-filled]').attr('class', 'filled');
-                      setRange(2025);
+                      setRange(initalRange);
                       break;
                     }
 
@@ -307,6 +326,10 @@ const ScorigamiCard = () => {
                   }
 
                   d3.selectAll('.cell-text').text(d => {
+                    const cool = d[key];
+                    if (!cool) {
+                      return 'N/A';
+                    }
                     return d[key];
                   });
 
@@ -336,8 +359,8 @@ const ScorigamiCard = () => {
           <div className="col-12">
             <label className="flex align-items-center">
               <Slider
-                max={2025}
-                min={1920}
+                max={DATA_RANGE.max}
+                min={DATA_RANGE.min}
                 onChange={({ value }) => {
                   d3.selectAll('.cell-text').attr('class', d => {
                     const year = parseInt(d.year, 10);
@@ -352,6 +375,7 @@ const ScorigamiCard = () => {
 
                     return 'cell-text';
                   });
+
                   d3.selectAll('[data-filled]').attr('class', d => {
                     const year = parseInt(d.year, 10);
 
@@ -371,7 +395,9 @@ const ScorigamiCard = () => {
                 value={range}
               />
 
-              <span className="pl-4 flex-shrink-0 ">2024 - 2025</span>
+              <span className="pl-4 flex-shrink-0 ">
+                {DATA_RANGE.min} - {DATA_RANGE.max}
+              </span>
             </label>
           </div>
         )}
@@ -382,7 +408,12 @@ const ScorigamiCard = () => {
             'solid-filled': !multiSelect.includes(MODE_SHOW_GRADIENT),
           })}
         >
-          <svg ref={ref} />
+          <ScrollPanel style={{ height: '100%' }}>
+            <svg ref={ref} />
+          </ScrollPanel>
+        </div>
+        <div className="col-12">
+          <Brian />
         </div>
       </div>
     </div>
