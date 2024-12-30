@@ -5,10 +5,10 @@ import { Menu } from 'primereact/menu';
 import { get } from 'lodash';
 import GameCard from './GameCard';
 
-const CurrentGames = ({ events }) => {
+const CurrentGames = ({ events, selectedGames, setSelectedGames }) => {
   const ref = useRef(null);
-  const [selectedGames, setSelectedGames] = useState({});
 
+  // square-2-0
   return (
     <div className="grid">
       <div className="col-12">
@@ -46,13 +46,8 @@ const CurrentGames = ({ events }) => {
               id={id}
               name={name}
               {...get(competitions, 0, {})}
-              isSelected={Boolean(selectedGames[id])}
-              onClick={() => {
-                setSelectedGames({
-                  ...selectedGames,
-                  [id]: !selectedGames[id],
-                });
-              }}
+              selectedGames={selectedGames}
+              setSelectedGames={setSelectedGames}
             />
           </div>
         );

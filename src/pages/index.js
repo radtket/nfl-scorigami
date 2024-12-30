@@ -1,51 +1,64 @@
-import { get } from 'lodash';
+import { isEmpty } from 'lodash';
+import csv from 'csvtojson';
+import { useEffect, useState } from 'react';
+import * as d3 from 'd3';
+import PropTypes from 'prop-types';
 import CurrentGames from '../components/CurrentGames';
 import ScorigamiCard from '../components/ScorigamiCard';
 
-const Home = props => {
+const Home = ({ events }) => {
+  const [selectedGames, setSelectedGames] = useState([]);
+
+  useEffect(() => {
+    if (!isEmpty(selectedGames)) {
+      selectedGames.forEach(([key, selected]) => {
+        if (selected) {
+          d3.select(`#square-${key}`).style('fill', 'red');
+        }
+      });
+    }
+  }, [selectedGames]);
+
   return (
     <main className="layout-wrapper layout-static">
       <div className="layout-main-container">
         <div className="layout-main">
           <ScorigamiCard />
-          <CurrentGames events={get(props, 'events', [])} />
+          <CurrentGames
+            events={events || []}
+            selectedGames={selectedGames}
+            setSelectedGames={setSelectedGames}
+          />
         </div>
       </div>
     </main>
   );
 };
 
+Home.propTypes = {
+  events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
+
 export default Home;
 
 export async function getStaticProps() {
   return Promise.all([
-    fetch(
-      'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard'
-    ).then(res => {
+    fetch(process.env.SCOREBOARD_URL).then(res => {
       return res.json();
     }),
-    fetch('https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv')
+    fetch(process.env.DATABASE_URL)
       .then(res => {
         return res.text();
       })
-      .then(text => {
-        const lines = text.split('\n');
-        const headers = lines[0].split(',');
-        const eloData = lines.slice(1).map(line => {
-          const values = line.split(',');
-          return headers.reduce((obj, header, index) => {
-            obj[header] = values[index];
-            return obj;
-          }, {});
-        });
-        return eloData;
+      .then(csvStr => {
+        return csv().fromString(csvStr);
       }),
   ])
-    .then(([scoreboard, zzz]) => {
-      console.log({ zzz });
+    .then(([scoreboard, elo]) => {
       return {
         props: {
           ...scoreboard,
+          elo,
         },
       };
     })

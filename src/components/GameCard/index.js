@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'primereact/card';
 import { Avatar } from 'primereact/avatar';
 import classNames from 'classnames';
-import { get } from 'lodash';
+import { get, sortBy } from 'lodash';
 import GameCardHeader from './GameCardHeader';
 import GameCardFooter from './GameCardFooter';
 import { GAME_STATUS_SCHEDULED } from '../../utils/constants';
@@ -16,18 +16,55 @@ const GameCard = ({
   date,
   id,
   broadcast,
-  isSelected,
-  onClick,
+
+  selectedGames,
+  setSelectedGames,
 }) => {
+  const key = useMemo(() => {
+    const [y, x] = sortBy(competitors, 'score');
+
+    return `${x.score}-${y.score}`;
+  }, [competitors]);
+
+  const isScheduled = useMemo(() => {
+    return !status.type || status.type.name === GAME_STATUS_SCHEDULED;
+  }, [status.type]);
+
+  const props = useMemo(() => {
+    if (isScheduled) {
+      return {};
+    }
+
+    return {
+      onClick: () => {
+        setSelectedGames(prev => {
+          return prev.includes(key)
+            ? prev.filter(item => {
+                return item !== key;
+              })
+            : [...prev, key];
+        });
+      },
+    };
+  }, [key, setSelectedGames, isScheduled]);
+
   return (
     <Card
-      className={classNames('game-card', { 'game-card--selected': isSelected })}
+      className={classNames('game-card', {
+        'game-card--selectable': !isScheduled,
+        'game-card--selected': selectedGames.includes(key),
+      })}
       footer={<GameCardFooter {...{ status, gamecast, competitors, id }} />}
-      onClick={onClick}
+      {...props}
       title={
-        <ul className="m-0 pl-0 list-none flex align-items-center justify-content-between text-xs">
-          <GameCardHeader {...{ status, date, venue, broadcast }} />
-        </ul>
+        <>
+          <div className="game-details">
+            <span>Game Details</span>
+          </div>
+          <ul className="m-0 pl-0 list-none flex align-items-center justify-content-between text-xs">
+            <GameCardHeader {...{ status, date, venue, broadcast }} />
+          </ul>
+        </>
       }
     >
       <ul className="m-0 mb-0 pl-0 list-none">
@@ -47,9 +84,8 @@ const GameCard = ({
               <div className="flex align-items-center">
                 <Avatar
                   className="p-overlay-badge mr-3"
-                  size="large"
                   image={team.logo}
-                  // shape="circle"
+                  size="large"
                 />
 
                 <dl>
@@ -86,8 +122,8 @@ GameCard.propTypes = {
     fullName: PropTypes.string,
   }).isRequired,
   broadcast: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  selectedGames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedGames: PropTypes.func.isRequired,
 };
 
 export default GameCard;

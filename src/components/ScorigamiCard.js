@@ -123,6 +123,7 @@ const ScorigamiCard = () => {
           return d.y;
         })
       )
+
       .range([0, INNER_HEIGHT])
       .padding(-0.05);
 
@@ -142,24 +143,12 @@ const ScorigamiCard = () => {
       })
       .attr('width', x.bandwidth())
       .attr('height', y.bandwidth())
+      .attr('id', d => {
+        return `square-${d.x}-${d.y}`;
+      })
       .attr('class', 'square')
       .attr('fill', d => {
-        if (
-          d.x < d.y ||
-          (d.y <= 1 &&
-            [
-              [0, 1],
-              [1, 0],
-              [1, 1],
-              [2, 1],
-              [3, 1],
-              [4, 1],
-              [5, 1],
-              [7, 1],
-            ].some(cord => {
-              return cord[0] === d.x && cord[1] === d.y;
-            }))
-        ) {
+        if (d.impossible) {
           return '#000';
         }
 
@@ -189,6 +178,9 @@ const ScorigamiCard = () => {
       })
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
+      .attr('id', d => {
+        return `cell-text-${d.x}-${d.y}`;
+      })
       .attr('class', d => {
         return d.value > 0 ? 'cell-text' : 'cell-text--empty';
       });
@@ -222,7 +214,8 @@ const ScorigamiCard = () => {
       .attr('text-anchor', 'middle')
       .attr('x', margin.left + INNER_WIDTH / 2)
       .attr('y', height - 10)
-      .text('Losing Team');
+      .text('Losing Team')
+      .style('fill', 'var(--text-color)');
 
     // Add Y axis label
     svg
@@ -232,7 +225,8 @@ const ScorigamiCard = () => {
         'transform',
         `translate(15, ${margin.top + INNER_HEIGHT / 2}) rotate(-90)`
       )
-      .text('Winning Team');
+      .text('Winning Team')
+      .style('fill', 'var(--text-color)');
 
     // Add legend
     const legendWidth = 300;

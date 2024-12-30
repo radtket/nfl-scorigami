@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import '../styles/globals.css';
+import '../styles/styles.scss';
 // import 'primereact/resources/themes/saga-blue/theme.css';
 // import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 // import 'primereact/resources/themes/bootstrap4-light-purple/theme.css';
@@ -40,9 +40,9 @@ import '../styles/globals.css';
 import 'primereact/resources/themes/arya-green/theme.css';
 // import 'primereact/resources/themes/arya-orange/theme.css';
 // import 'primereact/resources/themes/arya-purple/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/primereact.min.css';
 
 const App = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
