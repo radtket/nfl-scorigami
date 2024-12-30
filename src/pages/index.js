@@ -1,8 +1,8 @@
-import { isEmpty } from 'lodash';
 import csv from 'csvtojson';
-import { useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import CurrentGames from '../components/CurrentGames';
 import ScorigamiCard from '../components/ScorigamiCard';
 
@@ -42,6 +42,12 @@ Home.propTypes = {
 export default Home;
 
 export async function getStaticProps() {
+  console.log(
+    'zzzz',
+    process.env.SCOREBOARD_URL,
+    process.env.DATABASE_URL,
+    process.env
+  );
   return Promise.all([
     fetch(process.env.SCOREBOARD_URL).then(res => {
       return res.json();
