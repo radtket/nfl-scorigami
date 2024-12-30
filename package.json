@@ -13,7 +13,9 @@
     "@babel/eslint-parser": "^7.25.9",
     "@babel/preset-react": "^7.26.3",
     "classnames": "^2.5.1",
+    "csvtojson": "^2.0.10",
     "d3": "^7.9.0",
+    "d3-simple-slider": "^2.0.0",
     "date-fns": "^4.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -27,7 +29,8 @@
     "primereact": "^10.8.5",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "stylelint-selector-bem-pattern": "^4.0.1"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
@@ -37,6 +40,12 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "nodemon": "^3.0.1",
-    "sass": "^1.83.0"
+    "sass": "^1.83.0",
+    "stylelint": "^16.12.0",
+    "stylelint-config-alphabetical-order": "^1.0.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-prettier": "^5.0.2"
   }
 }

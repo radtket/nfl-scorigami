@@ -32,14 +32,13 @@ function getScorigamiProbability(game) {
   let awayScore = null;
   const phase = game.status.type.name;
 
-  for (const competitorIndex in game.competitors) {
-    const competitor = game.competitors[competitorIndex];
+  game.competitors.forEach(competitor => {
     if (competitor.homeAway === 'home') {
-      homeScore = parseInt(competitor.score);
+      homeScore = parseInt(competitor.score, 10);
     } else {
-      awayScore = parseInt(competitor.score);
+      awayScore = parseInt(competitor.score, 10);
     }
-  }
+  });
 
   let { clock } = game.status;
   let quarter;
@@ -69,12 +68,12 @@ function getScorigamiProbability(game) {
 
   let probability = 0.0;
 
-  for (let i = 0; i < chances.length; i++) {
+  for (let i = 0; i < chances.length; i += 1) {
     const chance1 = chances[i];
     const prob1 = getProb(quarter, clock, chance1);
     const score1 = awayScore + chance1.pts;
 
-    for (let j = 0; j < chances.length; j++) {
+    for (let j = 0; j < chances.length; j += 1) {
       const chance2 = chances[j];
       const prob2 = getProb(quarter, clock, chance2);
       const score2 = homeScore + chance2.pts;

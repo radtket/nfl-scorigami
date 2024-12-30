@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { Card } from 'primereact/card';
-import { Avatar } from 'primereact/avatar';
 import classNames from 'classnames';
 import { get, sortBy } from 'lodash';
-import GameCardHeader from './GameCardHeader';
-import GameCardFooter from './GameCardFooter';
+import { Avatar } from 'primereact/avatar';
+import { Card } from 'primereact/card';
+import PropTypes from 'prop-types';
+import { useMemo } from 'react';
 import { GAME_STATUS_SCHEDULED } from '../../utils/constants';
+import GameCardFooter from './GameCardFooter';
+import GameCardHeader from './GameCardHeader';
 
 const GameCard = ({
   competitors,

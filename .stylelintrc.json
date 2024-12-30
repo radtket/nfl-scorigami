@@ -3,7 +3,8 @@
     "stylelint-config-standard-scss",
     "stylelint-prettier",
     "stylelint-config-alphabetical-order",
-    "stylelint-selector-bem-pattern"
+    "stylelint-selector-bem-pattern",
+    "stylelint-config-prettier-scss"
   ],
   "rules": {
     "selector-class-pattern": [

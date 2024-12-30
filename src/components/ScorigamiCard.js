@@ -1,19 +1,14 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from 'react';
-import { SelectButton } from 'primereact/selectbutton';
-import { Toolbar } from 'primereact/toolbar';
-import { Dropdown } from 'primereact/dropdown';
-import { Slider } from 'primereact/slider';
 import classNames from 'classnames';
 import * as d3 from 'd3';
-import { readableColor } from 'polished';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { getYear } from 'date-fns';
+import { readableColor } from 'polished';
+import { Dropdown } from 'primereact/dropdown';
+import { ScrollPanel } from 'primereact/scrollpanel';
+import { SelectButton } from 'primereact/selectbutton';
+import { Slider } from 'primereact/slider';
+import { Toolbar } from 'primereact/toolbar';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import json from '../constants/data';
 import {
   MODE_FIRST_GAME_CALENDAR_YEAR,
   MODE_FIRST_GAME_SEASON_YEAR,
@@ -22,7 +17,6 @@ import {
   MODE_SHOW_VALUE,
   MULTI_SELECT_OPTIONS,
 } from '../constants/modes';
-import json from '../constants/data';
 
 const { matrix } = json;
 
@@ -100,11 +94,11 @@ const ScorigamiCard = () => {
     const INNER_WIDTH = width - margin.left - margin.right;
     const INNER_HEIGHT = height - margin.top - margin.bottom;
 
-    const maxMinScore = d3.max(
-      data.map(d => {
-        return Math.min(d.score1, d.score2);
-      })
-    );
+    // const maxMinScore = d3.max(
+    //   data.map(d => {
+    //     return Math.min(d.score1, d.score2);
+    //   })
+    // );
 
     const x = d3
       .scaleBand()
@@ -351,6 +345,7 @@ const ScorigamiCard = () => {
           mode.code
         ) && (
           <div className="col-12">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className="flex align-items-center">
               <Slider
                 max={max}

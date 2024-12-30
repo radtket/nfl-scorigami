@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import { get } from 'lodash';
 import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
-import { get } from 'lodash';
+import PropTypes from 'prop-types';
+import { useRef } from 'react';
 import GameCard from './GameCard';
 
 const CurrentGames = ({ events, selectedGames, setSelectedGames }) => {
@@ -58,6 +58,8 @@ const CurrentGames = ({ events, selectedGames, setSelectedGames }) => {
 
 CurrentGames.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  selectedGames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedGames: PropTypes.func.isRequired,
 };
 
 export default CurrentGames;
