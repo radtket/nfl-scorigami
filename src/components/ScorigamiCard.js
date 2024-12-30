@@ -23,7 +23,6 @@ import {
   MULTI_SELECT_OPTIONS,
 } from '../constants/modes';
 import json from '../constants/data';
-import Brian from './Brian/Brian';
 
 const { matrix } = json;
 
@@ -100,6 +99,12 @@ const ScorigamiCard = () => {
     const margin = { top: 40, right: 40, bottom: 40, left: 40 };
     const INNER_WIDTH = width - margin.left - margin.right;
     const INNER_HEIGHT = height - margin.top - margin.bottom;
+
+    const maxMinScore = d3.max(
+      data.map(d => {
+        return Math.min(d.score1, d.score2);
+      })
+    );
 
     const x = d3
       .scaleBand()
@@ -406,9 +411,6 @@ const ScorigamiCard = () => {
           <ScrollPanel style={{ height: '100%' }}>
             <svg ref={ref} />
           </ScrollPanel>
-        </div>
-        <div className="col-12">
-          <Brian />
         </div>
       </div>
     </div>
