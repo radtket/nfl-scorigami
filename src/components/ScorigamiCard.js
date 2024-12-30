@@ -37,7 +37,9 @@ const data = matrix.reduce((all, row, ROW_INDEX) => {
       y: ROW_INDEX,
       value: cell.count,
       date: cell.last_date || null,
-      year: cell.first_date ? cell.first_date.split('-')[0] : null,
+      year: cell.first_date
+        ? parseInt(cell.first_date.split('-')[0], 10)
+        : null,
       impossible:
         COL_INDEX < ROW_INDEX ||
         (ROW_INDEX <= 1 &&
@@ -66,29 +68,24 @@ const ScorigamiCard = () => {
   const [mode, setMode] = useState(MODE_OPTIONS[1]);
   const [range, setRange] = useState(initalRange);
 
-  const DATA_RANGE = useMemo(() => {
-    const years = data.map(d => {
-      return d.year;
+  const [min, max] = useMemo(() => {
+    return d3.extent(data, d => {
+      return parseInt(d.year, 10);
     });
-    return {
-      min: parseInt(d3.min(years), 10),
-      max: parseInt(d3.max(years), 10),
-    };
   }, []);
 
   useEffect(() => {
-    setRange(DATA_RANGE.max);
-  }, [DATA_RANGE]);
+    setRange(max);
+  }, [max]);
 
   const ref = useRef();
 
   const colorScale = useMemo(() => {
-    return d3.scaleSequential(d3.interpolateYlOrRd).domain([
-      0,
-      d3.max(data, d => {
+    return d3.scaleSequential(d3.interpolateYlOrRd).domain(
+      d3.extent(data, d => {
         return d.value;
-      }),
-    ]);
+      })
+    );
   }, []);
 
   // TODO: CREATE SEPERATE FOR GRAPH MOST FREQUENT SCORES TO RAREST
@@ -217,7 +214,6 @@ const ScorigamiCard = () => {
     // Add X axis label
     svg
       .append('text')
-      .attr('class', 'x-axis-label')
       .attr('text-anchor', 'middle')
       .attr('x', margin.left + INNER_WIDTH / 2)
       .attr('y', height - 10)
@@ -226,7 +222,6 @@ const ScorigamiCard = () => {
     // Add Y axis label
     svg
       .append('text')
-      .attr('class', 'y-axis-label')
       .attr('text-anchor', 'middle')
       .attr(
         'transform',
@@ -359,8 +354,8 @@ const ScorigamiCard = () => {
           <div className="col-12">
             <label className="flex align-items-center">
               <Slider
-                max={DATA_RANGE.max}
-                min={DATA_RANGE.min}
+                max={max}
+                min={min}
                 onChange={({ value }) => {
                   d3.selectAll('.cell-text').attr('class', d => {
                     const year = parseInt(d.year, 10);
@@ -396,7 +391,7 @@ const ScorigamiCard = () => {
               />
 
               <span className="pl-4 flex-shrink-0 ">
-                {DATA_RANGE.min} - {DATA_RANGE.max}
+                {min} - {max}
               </span>
             </label>
           </div>
