@@ -25,8 +25,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL || vars.DATABASE_URL }}
-  SCOREBOARD_URL: ${{ secrets.SCOREBOARD_URL || vars.SCOREBOARD_URL }}
+  DATABASE_URL: https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv
+  SCOREBOARD_URL: https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard
 
 jobs:
   set_and_use_env_vars:
